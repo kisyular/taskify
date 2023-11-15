@@ -2,6 +2,7 @@ import Link from 'next/link'
 import localFont from 'next/font/local'
 import { Poppins } from 'next/font/google'
 import { Medal } from 'lucide-react'
+import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -48,6 +49,20 @@ const MarketingPage = () => {
 			<Button className='mt-6' size='lg' asChild>
 				<Link href='/sign-up'>Get Taskify for free</Link>
 			</Button>
+			<Image
+				src='/home-black.svg'
+				height='400'
+				width='400'
+				alt='Logo'
+				className='dark:hidden'
+			/>
+			<Image
+				src='/home-white.svg'
+				height='400'
+				width='400'
+				alt='Logo'
+				className='hidden dark:block'
+			/>
 		</div>
 	)
 }
