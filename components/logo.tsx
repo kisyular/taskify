@@ -11,11 +11,24 @@ const headingFont = localFont({
 export const Logo = () => {
 	return (
 		<Link href='/'>
-			<div className='hover:opacity-75 transition items-center gap-x-2 hidden md:flex'>
-				<Image src='/logo.svg' alt='Logo' height={30} width={30} />
+			<div className='hidden md:flex items-center gap-x-2'>
+				<Image
+					src='/logo-black.png'
+					height='40'
+					width='40'
+					alt='Logo'
+					className='dark:hidden'
+				/>
+				<Image
+					src='/logo-white.png'
+					height='40'
+					width='40'
+					alt='Logo'
+					className='hidden dark:block'
+				/>
 				<p
 					className={cn(
-						'text-lg text-neutral-700 pb-1',
+						'text-lg text-slate-700 pb-1 dark:text-slate-50',
 						headingFont.className
 					)}
 				>
