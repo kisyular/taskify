@@ -39,7 +39,7 @@ const Navbar = () => {
 							rootBox:
 								'dark:bg-black flex justify-center items-center',
 							organizationSwitcherTrigger:
-								'dark:text-white capitalize',
+								'dark:text-white capitalize truncate w-52',
 							avatarBox:
 								'dark:border-white border-solid border-2 dark:bg-slate-400 rounded-full',
 							organizationSwitcherTriggerIcon:
