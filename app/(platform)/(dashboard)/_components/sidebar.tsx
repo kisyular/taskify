@@ -53,6 +53,11 @@ const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
 					<Skeleton className='h-10 w-[60%] bg-slate-600 dark:bg-slate-400' />
 					<Skeleton className='h-10 w-10 bg-slate-600 dark:bg-slate-400' />
 				</div>
+				<div className='space-y-2'>
+					<NavItem.Skeleton />
+					<NavItem.Skeleton />
+					<NavItem.Skeleton />
+				</div>
 			</>
 		)
 	}
@@ -60,12 +65,12 @@ const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
 	return (
 		<>
 			<div className='font-medium text-xs flex items-center mb-1'>
-				<span className='pl-4'>Workspaces</span>
+				<span className='pl-4 text-2xl'>Workspaces</span>
 				<Button
 					asChild
 					type='button'
 					size='icon'
-					variant='ghost'
+					variant='default'
 					className='ml-auto'
 				>
 					<Link href='/select-org'>
