@@ -6,12 +6,14 @@ import { OrganizationSwitcher, UserButton } from '@clerk/nextjs'
 import { Plus } from 'lucide-react'
 import { useOrganization } from '@clerk/nextjs'
 import { Skeleton } from '@/components/ui/skeleton'
+import { MobileSidebar } from './mobile-sidebar'
 
 const Navbar = () => {
 	const { isLoaded: isLoadedOrg } = useOrganization()
 	return (
 		<nav className='fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm  flex items-center'>
-			{/* TODO Mobile Sidebar */}
+			<MobileSidebar />
+
 			<div className='flex items-center gap-x-4'>
 				<div className='hidden md:flex'>
 					<Logo />
