@@ -37,8 +37,8 @@ const Navbar = () => {
 				{!isLoadedOrg && (
 					<>
 						<div className='flex items-center justify-between mb-2'>
-							<Skeleton className='h-10 w-16 mr-3 bg-slate-600 dark:bg-slate-400' />
-							<Skeleton className='h-10 w-36 bg-slate-600 dark:bg-slate-400' />
+							<Skeleton className='h-10 w-16 mr-3 bg-slate-500 dark:bg-slate-400' />
+							<Skeleton className='h-10 w-36 bg-slate-500 dark:bg-slate-400' />
 						</div>
 					</>
 				)}

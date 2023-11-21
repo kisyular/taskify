@@ -50,8 +50,8 @@ const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
 		return (
 			<>
 				<div className='flex items-center justify-between mb-2'>
-					<Skeleton className='h-10 w-[60%] bg-slate-600 dark:bg-slate-400' />
-					<Skeleton className='h-10 w-10 bg-slate-600 dark:bg-slate-400' />
+					<Skeleton className='h-10 w-[60%] bg-slate-500 dark:bg-slate-400' />
+					<Skeleton className='h-10 w-10 bg-slate-500 dark:bg-slate-400' />
 				</div>
 				<div className='space-y-2'>
 					<NavItem.Skeleton />
