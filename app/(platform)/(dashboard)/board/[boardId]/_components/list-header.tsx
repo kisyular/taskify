@@ -7,6 +7,7 @@ import { useState, useRef, ElementRef } from 'react'
 
 import { useAction } from '@/hooks/use-action'
 import { FormInput } from '@/components/form/form-input'
+import { updateList } from '@/actions/update-list'
 
 interface ListHeaderProps {
 	data: List
@@ -31,6 +32,17 @@ const ListHeader = ({ data }: ListHeaderProps) => {
 		setIsEditing(false)
 	}
 
+	const { execute } = useAction(updateList, {
+		onSuccess: (data) => {
+			toast.success(`Renamed to "${data.title}"`)
+			setTitle(data.title)
+			disableEditing()
+		},
+		onError: (error) => {
+			toast.error(error)
+		},
+	})
+
 	const handleSubmit = (formData: FormData) => {
 		const title = formData.get('title') as string
 		const id = formData.get('id') as string
@@ -39,6 +51,12 @@ const ListHeader = ({ data }: ListHeaderProps) => {
 		if (title === data.title) {
 			return disableEditing()
 		}
+
+		execute({
+			title,
+			id,
+			boardId,
+		})
 	}
 	const onBlur = () => {
 		formRef.current?.requestSubmit()
