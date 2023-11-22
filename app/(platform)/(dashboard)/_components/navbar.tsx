@@ -7,12 +7,12 @@ import { Plus } from 'lucide-react'
 import { useOrganization } from '@clerk/nextjs'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MobileSidebar } from './mobile-sidebar'
-import { FormPopover } from '@/components/forms/form-popover'
+import { FormPopover } from '@/components/form/form-popover'
 
 const Navbar = () => {
 	const { isLoaded: isLoadedOrg } = useOrganization()
 	return (
-		<nav className='fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm flex items-center dark:border-slate-50 border-slate-700 dark:bg-black dark:bg-opacity-50 bg-white bg-opacity-50'>
+		<nav className='fixed z-50 top-0 px-4 w-full h-14 shadow-sm flex items-center  dark:bg-black bg-white '>
 			<MobileSidebar />
 
 			<div className='flex items-center gap-x-4'>

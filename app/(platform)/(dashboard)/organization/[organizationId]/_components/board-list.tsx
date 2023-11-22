@@ -6,7 +6,7 @@ import { HelpCircle, User2 } from 'lucide-react'
 import { db } from '@/lib/db'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Hint } from '@/components/hint'
-import { FormPopover } from '@/components/forms/form-popover'
+import { FormPopover } from '@/components/form/form-popover'
 
 export const BoardList = async () => {
 	const { orgId } = auth()

@@ -20,7 +20,6 @@ interface FormPickerProps {
 export const FormPicker = ({ id, errors }: FormPickerProps) => {
 	const generateUUID = () => {
 		const uuid = uuidv4()
-		console.log('Generated UUID:', uuid)
 		return uuid
 	}
 	// Extract 'pending' from useFormStatus()

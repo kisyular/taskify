@@ -20,6 +20,7 @@ interface FormInputProps {
 	className?: string
 	defaultValue?: string
 	onBlur?: () => void
+	onFocus?: () => void
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
@@ -35,6 +36,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
 			className,
 			defaultValue = '',
 			onBlur,
+			onFocus,
 		},
 		ref
 	) => {
@@ -58,6 +60,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
 						required={required}
 						name={id}
 						id={id}
+						onFocus={onFocus}
 						placeholder={placeholder}
 						type={type}
 						disabled={pending || disabled}
