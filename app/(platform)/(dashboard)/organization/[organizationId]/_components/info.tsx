@@ -20,6 +20,7 @@ const Info = () => {
 					alt='Organization'
 					className='rounded-md object-cover'
 					sizes='(max-width: 768px) 100vw'
+					priority={true} // Add priority attribute to prioritize this image
 				/>
 			</div>
 			<div className='space-y-1'>
