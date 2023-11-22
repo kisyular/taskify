@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button'
 import { ElementRef, useRef, useState } from 'react'
 import { FormInput } from '@/components/form/form-input'
 import { LucideEdit } from 'lucide-react'
+import { updateBoard } from '@/actions/update-board'
+import { useAction } from '@/hooks/use-action'
+import { toast } from 'sonner'
 
 interface BoardTitleFormProps {
 	data: Board
@@ -38,11 +41,23 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 	const onFocus = () => {
 		setIsFocused(true) // Update isFocused state when input is focused
 	}
+	const { execute } = useAction(updateBoard, {
+		onSuccess: (data) => {
+			toast.success(`Board "${data.title}" updated!`)
+			setTitle(data.title)
+			disableEditing()
+		},
+		onError: (error) => {
+			toast.error(error)
+		},
+	})
 
 	const onSubmit = (formData: FormData) => {
 		const title = formData.get('title') as string
-
-		console.log('Submitted', title)
+		execute({
+			title,
+			id: data.id,
+		})
 		setIsFocused(false)
 	}
 	if (isEditing) {
