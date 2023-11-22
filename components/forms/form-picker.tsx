@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Check, Loader2 } from 'lucide-react'
 import { useFormStatus } from 'react-dom'
 import { useEffect, useState } from 'react'
-
+import { v4 as uuidv4 } from 'uuid'
 import { cn } from '@/lib/utils'
 import { unsplash } from '@/lib/unsplash'
 import { defaultImages } from '@/constants/images'
@@ -18,6 +18,11 @@ interface FormPickerProps {
 }
 
 export const FormPicker = ({ id, errors }: FormPickerProps) => {
+	const generateUUID = () => {
+		const uuid = uuidv4()
+		console.log('Generated UUID:', uuid)
+		return uuid
+	}
 	// Extract 'pending' from useFormStatus()
 	const { pending } = useFormStatus()
 
@@ -87,7 +92,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
 					>
 						<input
 							type='radio'
-							id={id}
+							id={id + generateUUID()}
 							name={id}
 							className='hidden'
 							checked={selectedImageId === image.id}
