@@ -11,11 +11,12 @@ import {
 	PopoverTrigger,
 	PopoverClose,
 } from '@/components/ui/popover'
-import { useAction } from '@/hooks/use-action'
 import { Button } from '@/components/ui/button'
 import { FormSubmit } from '@/components/form/form-submit'
 import { Separator } from '@/components/ui/separator'
 
+import { useAction } from '@/hooks/use-action'
+import { deleteList } from '@/actions/delete-list'
 interface ListOptionsProps {
 	data: List
 	onAddCard: () => void
@@ -23,6 +24,22 @@ interface ListOptionsProps {
 
 const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 	const closeRef = useRef<ElementRef<'button'>>(null)
+
+	const { execute: executeDelete } = useAction(deleteList, {
+		onSuccess: (data) => {
+			toast.success(`List "${data.title}" deleted`)
+			closeRef.current?.click()
+		},
+		onError: (error) => {
+			toast.error(error)
+		},
+	})
+	const onDelete = (formData: FormData) => {
+		const id = formData.get('id') as string
+		const boardId = formData.get('boardId') as string
+
+		executeDelete({ id, boardId })
+	}
 
 	return (
 		<Popover>
@@ -71,7 +88,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
 					</FormSubmit>
 				</form>
 				<Separator />
-				<form>
+				<form action={onDelete}>
 					<input readOnly hidden name='id' id='id' value={data.id} />
 					<input
 						readOnly
