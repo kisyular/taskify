@@ -18,6 +18,7 @@ export const Logo = () => {
 					width='40'
 					alt='Logo'
 					className='dark:hidden'
+					priority={true}
 				/>
 				<Image
 					src='/logo-white.png'
@@ -25,10 +26,11 @@ export const Logo = () => {
 					width='40'
 					alt='Logo'
 					className='hidden dark:block'
+					priority={true}
 				/>
 				<p
 					className={cn(
-						'text-lg text-slate-700 pb-1 dark:text-slate-50',
+						'text-lg text-slate-900 pb-1 dark:text-slate-50',
 						headingFont.className
 					)}
 				>

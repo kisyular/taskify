@@ -12,7 +12,7 @@ import { FormPopover } from '@/components/forms/form-popover'
 const Navbar = () => {
 	const { isLoaded: isLoadedOrg } = useOrganization()
 	return (
-		<nav className='fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm  flex items-center'>
+		<nav className='fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm flex items-center dark:bg-black dark:bg-opacity-50 bg-white bg-opacity-50'>
 			<MobileSidebar />
 
 			<div className='flex items-center gap-x-4'>
@@ -54,8 +54,7 @@ const Navbar = () => {
 					afterSelectOrganizationUrl='/organization/:id'
 					appearance={{
 						elements: {
-							rootBox:
-								'dark:bg-black flex justify-center items-center',
+							rootBox: 'flex justify-center items-center',
 							organizationSwitcherTrigger:
 								'dark:text-white capitalize truncate w-52',
 							avatarBox: 'bg-slate-700 rounded-full',
