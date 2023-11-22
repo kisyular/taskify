@@ -105,7 +105,7 @@ const ListForm = () => {
 			<Button
 				onClick={enableEditing}
 				variant='default'
-				className='w-full rounded-md border transition p-3 flex items-center font-medium text-sm'
+				className='w-full rounded-md transition p-3 flex items-center font-medium text-sm dark:bg-white bg-black px-2.5 py-1 h-12 dark:border-black border-white border'
 			>
 				<Plus className='h-4 w-4 mr-2' />
 				Add a list
