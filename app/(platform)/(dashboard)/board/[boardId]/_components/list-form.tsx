@@ -84,14 +84,12 @@ const ListForm = () => {
 						value={params.boardId}
 						name='boardId'
 					/>
-					<div className='flex items-center gap-x-1'>
-						<FormSubmit className='bg-black dark:bg-white text-white hover:bg-black/75 dark:text-black'>
-							Add list
-						</FormSubmit>
+					<div className='flex items-center justify-between gap-x-1'>
+						<FormSubmit>Add list</FormSubmit>
 						<Button
 							onClick={disableEditing}
 							size='sm'
-							variant='default'
+							variant='destructive'
 						>
 							<X className='h-5 w-5' />
 						</Button>
@@ -104,8 +102,8 @@ const ListForm = () => {
 		<ListWrapper>
 			<Button
 				onClick={enableEditing}
-				variant='default'
-				className='w-full rounded-md transition p-3 flex items-center font-medium text-sm dark:bg-white bg-black px-2.5 py-1 h-12 dark:border-black border-white border'
+				variant='ghost'
+				className='w-full rounded-md transition p-3 flex items-center font-medium text-sm dark:bg-black text-black dark:text-white bg-white px-2.5 py-1 h-12 dark:border-white border-black border dark:hover:bg-accent'
 			>
 				<Plus className='h-4 w-4 mr-2' />
 				Add a list

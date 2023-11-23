@@ -28,7 +28,7 @@ const ListItem = ({ data, index }: ListItemProps) => {
 	}
 	return (
 		<li className='shrink-0 h-full w-[272px] select-none'>
-			<div className='w-full rounded-md dark:bg-white dark:text-black  shadow-md pb-2 bg-black text-white dark:border-black border-white border'>
+			<div className='w-full rounded-md dark:bg-black dark:text-white  shadow-md pb-2 bg-white text-black dark:border-white border-white border'>
 				<ListHeader data={data} onAddCard={enableEditing} />
 				<CardForm
 					listId={data.id}

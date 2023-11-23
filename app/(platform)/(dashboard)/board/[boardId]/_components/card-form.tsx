@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button'
 import { FormSubmit } from '@/components/form/form-submit'
 import { FormTextarea } from '@/components/form/form-textarea'
 
+import { useAction } from '@/hooks/use-action'
+import { createCard } from '@/actions/create-card'
+
 interface CardFormProps {
 	listId: string
 	enableEditing: () => void
@@ -37,10 +40,22 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
 			}
 		}
 
+		const { execute, fieldErrors } = useAction(createCard, {
+			onSuccess: (data) => {
+				toast.success(`Card "${data.title}" created`)
+				formRef.current?.reset()
+			},
+			onError: (error) => {
+				toast.error(error)
+			},
+		})
+
 		const onSubmit = (formData: FormData) => {
 			const title = formData.get('title') as string
 			const listId = formData.get('listId') as string
 			const boardId = params.boardId as string
+
+			execute({ title, listId, boardId })
 		}
 		if (isEditing) {
 			return (
@@ -54,14 +69,22 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
 						onKeyDown={onTextareakeyDown}
 						ref={ref}
 						placeholder='Enter a title for this card...'
+						errors={fieldErrors}
+						className='bg-accent '
 					/>
-					<input hidden id='listId' name='listId' value={listId} />
-					<div className='flex items-center gap-x-1'>
+					<input
+						readOnly
+						hidden
+						id='listId'
+						name='listId'
+						value={listId}
+					/>
+					<div className='flex items-center justify-between gap-x-1'>
 						<FormSubmit>Add card</FormSubmit>
 						<Button
 							onClick={disableEditing}
 							size='sm'
-							variant='ghost'
+							variant='destructive'
 						>
 							<X className='h-5 w-5' />
 						</Button>
