@@ -35,8 +35,6 @@ const BoardIdPage = async ({ params }: BoardIdPageProps) => {
 		},
 	})
 
-	console.log(lists)
-
 	return (
 		<div className='p-4 h-full overflow-x-auto'>
 			<ListContainer boardId={params.boardId} data={lists} />

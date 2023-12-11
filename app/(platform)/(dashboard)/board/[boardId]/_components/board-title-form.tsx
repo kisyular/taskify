@@ -4,10 +4,11 @@ import { Board } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { ElementRef, useRef, useState } from 'react'
 import { FormInput } from '@/components/form/form-input'
-import { LucideEdit } from 'lucide-react'
+import { ArrowLeftCircle, LucideEdit } from 'lucide-react'
 import { updateBoard } from '@/actions/update-board'
 import { useAction } from '@/hooks/use-action'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 interface BoardTitleFormProps {
 	data: Board
@@ -20,6 +21,7 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 	const [title, setTitle] = useState(data.title)
 	const [isEditing, setIsEditing] = useState(false)
 	const [isFocused, setIsFocused] = useState(false) // New state to track input focus
+	const router = useRouter()
 
 	const enableEditing = () => {
 		setIsEditing(true)
@@ -31,6 +33,10 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 
 	const disableEditing = () => {
 		setIsEditing(false)
+	}
+
+	const goBack = () => {
+		router.back()
 	}
 
 	const onBlur = () => {
@@ -86,13 +92,23 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 	}
 
 	return (
-		<Button
-			onClick={enableEditing}
-			variant='ghost'
-			className='font-bold text-lg h-auto w-auto p-1 px-2 text-black dark:text-white'
-		>
-			{title}
-		</Button>
+		<>
+			<Button
+				onClick={goBack}
+				variant='outline'
+				className='font-bold text-xl h-auto w-auto p-1 px-2 text-black dark:text-white'
+			>
+				<ArrowLeftCircle className='mr-1' />
+				Back
+			</Button>
+			<Button
+				onClick={enableEditing}
+				variant='ghost'
+				className='font-bold text-lg h-auto w-auto p-1 px-2 text-black dark:text-white'
+			>
+				{title}
+			</Button>
+		</>
 	)
 }
 export default BoardTitleForm
