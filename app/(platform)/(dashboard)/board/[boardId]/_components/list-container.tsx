@@ -1,4 +1,5 @@
 'use client'
+import { toast } from 'sonner'
 
 import { ListWithCards } from '@/types'
 import ListForm from './list-form'
@@ -7,7 +8,7 @@ import ListItem from './list-item'
 import { DragDropContext, Droppable } from '@hello-pangea/dnd'
 import { useAction } from '@/hooks/use-action'
 import { updateListOrder } from '@/actions/update-list-order'
-import { toast } from 'sonner'
+import { updateCardOrder } from '@/actions/update-card-order'
 
 interface ListContainerProps {
 	data: ListWithCards[]
@@ -28,6 +29,15 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
 	const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
 		onSuccess: () => {
 			toast.success('List reordered')
+		},
+		onError: (error) => {
+			toast.error(error)
+		},
+	})
+
+	const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+		onSuccess: () => {
+			toast.success('Card reordered')
 		},
 		onError: (error) => {
 			toast.error(error)
@@ -110,6 +120,10 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
 				setOrderedData(newOrderedData)
 
 				// Execute action to update card order within the list
+				executeUpdateCardOrder({
+					boardId: boardId,
+					items: reorderedCards,
+				})
 			} else {
 				// Handle card movement to a different list
 				const [movedCard] = sourceList.cards.splice(source.index, 1)
@@ -129,6 +143,10 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
 				setOrderedData(newOrderedData)
 
 				// Execute action to update card order between different lists
+				executeUpdateCardOrder({
+					boardId: boardId,
+					items: destList.cards,
+				})
 			}
 		}
 	}
