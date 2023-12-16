@@ -8,6 +8,8 @@ import { createSafeAction } from '@/lib/create-safe-action' // Importing a funct
 
 import { UpdateBoard } from './schema' // Importing the schema for updating a board
 import { InputType, ReturnType } from './types' // Importing input and return types
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 // Handler function responsible for updating the board data
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -34,6 +36,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			data: {
 				title,
 			},
+		})
+
+		await createAuditLog({
+			entityTitle: board.title,
+			entityId: board.id,
+			entityType: ENTITY_TYPE.BOARD,
+			action: ACTION.UPDATE,
 		})
 	} catch (error) {
 		// Handling any errors that occur during the board update process

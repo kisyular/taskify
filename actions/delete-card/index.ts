@@ -11,6 +11,8 @@ import { createSafeAction } from '@/lib/create-safe-action'
 // Import necessary types and schemas
 import { DeleteCard } from './schema'
 import { InputType, ReturnType } from './types'
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 // Define the handler function that deletes a card
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -38,6 +40,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 					},
 				},
 			},
+		})
+
+		await createAuditLog({
+			entityTitle: card.title,
+			entityId: card.id,
+			entityType: ENTITY_TYPE.CARD,
+			action: ACTION.DELETE,
 		})
 	} catch (error) {
 		// Return an error message if the deletion fails

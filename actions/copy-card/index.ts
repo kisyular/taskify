@@ -11,6 +11,8 @@ import { createSafeAction } from '@/lib/create-safe-action'
 // Import necessary types and schemas
 import { CopyCard } from './schema'
 import { InputType, ReturnType } from './types'
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 // Define the handler function that copies a card
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -63,6 +65,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				order: newOrder,
 				listId: cardToCopy.listId,
 			},
+		})
+
+		await createAuditLog({
+			entityTitle: card.title,
+			entityId: card.id,
+			entityType: ENTITY_TYPE.CARD,
+			action: ACTION.CREATE,
 		})
 	} catch (error) {
 		// Return an error message if the card copying process fails

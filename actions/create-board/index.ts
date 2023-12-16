@@ -6,6 +6,8 @@ import { CreateBoard } from './schema' // Importing the schema for creating a bo
 import { db } from '@/lib/db' // Importing database functions from a custom module
 import { revalidatePath } from 'next/cache' // Importing revalidatePath function from Next.js cache module
 import { createSafeAction } from '@/lib/create-safe-action' // Importing a function to create safe actions
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 // Handler function responsible for creating a board
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -52,6 +54,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				imageUserName,
 				imageLinkHTML,
 			},
+		})
+
+		await createAuditLog({
+			entityTitle: board.title,
+			entityId: board.id,
+			entityType: ENTITY_TYPE.BOARD,
+			action: ACTION.CREATE,
 		})
 	} catch (error) {
 		console.log(error)

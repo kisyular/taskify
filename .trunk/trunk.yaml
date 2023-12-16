@@ -17,4 +17,5 @@ actions:
     - trunk-upgrade-available
 lint:
   enabled:
+    - prettier@3.1.0
     - eslint@8.54.0

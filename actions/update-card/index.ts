@@ -11,6 +11,8 @@ import { createSafeAction } from '@/lib/create-safe-action'
 // Import necessary types and schemas
 import { UpdateCard } from './schema'
 import { InputType, ReturnType } from './types'
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 //TODO: Import additional utilities for audit logging
 
@@ -45,7 +47,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 		})
 
-		//TODO: Create an audit log entry for the card update action
+		// Create an audit log entry for the card update action
+		await createAuditLog({
+			entityTitle: card.title,
+			entityId: card.id,
+			entityType: ENTITY_TYPE.CARD,
+			action: ACTION.UPDATE,
+		})
 	} catch (error) {
 		// Return an error message if the update fails
 		return {
