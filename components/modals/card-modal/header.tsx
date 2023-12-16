@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation'
 import { ElementRef, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useAction } from '@/hooks/use-action'
+import { updateCard } from '@/actions/update-card/'
 import { Skeleton } from '@/components/ui/skeleton'
 
 interface HeaderProps {
@@ -24,6 +25,24 @@ const Header = ({ data }: HeaderProps) => {
 		inputRef.current?.form?.requestSubmit()
 	}
 
+	const { execute } = useAction(updateCard, {
+		onSuccess: (data) => {
+			queryClient.invalidateQueries({
+				queryKey: ['card', data.id],
+			})
+
+			queryClient.invalidateQueries({
+				queryKey: ['card-logs', data.id],
+			})
+
+			toast.success(`Renamed to "${data.title}"`)
+			setTitle(data.title)
+		},
+		onError: (error) => {
+			toast.error(error)
+		},
+	})
+
 	const onSubmit = (formData: FormData) => {
 		const title = formData.get('title') as string
 		const boardId = params.boardId as string
@@ -31,6 +50,11 @@ const Header = ({ data }: HeaderProps) => {
 		if (title === data.title) {
 			return
 		}
+		execute({
+			title,
+			boardId,
+			id: data.id,
+		})
 	}
 	return (
 		<div className='flex items-start gap-x-3 mb-6 w-full'>
