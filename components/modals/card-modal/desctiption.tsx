@@ -91,12 +91,12 @@ export const Description = ({ data }: DescriptionProps) => {
 							ref={textareaRef}
 						/>
 						<div className='flex items-center gap-x-2'>
-							<FormSubmit>Save</FormSubmit>
+							<FormSubmit variant='outline'>Save</FormSubmit>
 							<Button
 								type='button'
 								onClick={disableEditing}
 								size='sm'
-								variant='ghost'
+								variant='secondary'
 							>
 								Cancel
 							</Button>
