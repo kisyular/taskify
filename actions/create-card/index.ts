@@ -9,6 +9,9 @@ import { createSafeAction } from '@/lib/create-safe-action' // Importing a funct
 import { CreateCard } from './schema' // Importing the schema for creating a card
 import { InputType, ReturnType } from './types' // Importing input and return types
 
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
+
 // Handler function responsible for creating a card
 const handler = async (data: InputType): Promise<ReturnType> => {
 	// Extracting userId and orgId from the authenticated user session
@@ -58,6 +61,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				listId,
 				order: newOrder,
 			},
+		})
+
+		await createAuditLog({
+			entityId: card.id,
+			entityTitle: card.title,
+			entityType: ENTITY_TYPE.CARD,
+			action: ACTION.CREATE,
 		})
 	} catch (error) {
 		return {
