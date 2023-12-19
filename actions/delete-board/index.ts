@@ -13,6 +13,7 @@ import { createAuditLog } from '@/lib/create-audit-log'
 import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 import { decreaseAvailableCount } from '@/lib/org-limit'
+import { checkSubscription } from '@/lib/subscription'
 
 // Handler function responsible for deleting the board
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -25,6 +26,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			error: 'Unauthorized', // Return an error if unauthorized
 		}
 	}
+	const isPro = await checkSubscription()
 
 	const { id } = data // Extracting the ID of the board to be deleted
 
@@ -39,7 +41,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 			},
 		})
 
-		await decreaseAvailableCount()
+		if (!isPro) {
+			await decreaseAvailableCount()
+		}
 
 		await createAuditLog({
 			entityTitle: board.title,
