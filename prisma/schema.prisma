@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
@@ -10,7 +9,6 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-
 model Board {
   id            String @id @default(uuid())
   orgId         String
@@ -25,7 +23,6 @@ model Board {
 
   lists         List[]
 }
-
 model List {
   id        String @id @default(uuid())
   title     String
@@ -39,7 +36,6 @@ model List {
 
   cards     Card[]
 }
-
 model Card {
   id          String @id @default(uuid())
   title       String
@@ -64,7 +60,6 @@ enum ENTITY_TYPE {
   LIST
   CARD
 }
-
 model AuditLog {
   id          String  @id @default(uuid())
   orgId       String
@@ -87,4 +82,14 @@ model OrgLimit {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+model OrgSubscription {
+  id                String @id @default(uuid())
+  orgId             String @unique
+
+  stripeCustomerId  String? @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
+  stripePriceId        String? @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 }
