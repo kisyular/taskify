@@ -12,6 +12,8 @@ import { InputType, ReturnType } from './types' // Importing input and return ty
 import { createAuditLog } from '@/lib/create-audit-log'
 import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
+import { decreaseAvailableCount } from '@/lib/org-limit'
+
 // Handler function responsible for deleting the board
 const handler = async (data: InputType): Promise<ReturnType> => {
 	// Extracting userId and orgId from the authenticated user session
@@ -36,6 +38,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 				orgId,
 			},
 		})
+
+		await decreaseAvailableCount()
 
 		await createAuditLog({
 			entityTitle: board.title,

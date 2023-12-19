@@ -32,13 +32,14 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
 	const [selectedImageId, setSelectedImageId] = useState(null) // State to hold the ID of a selected image
 
 	// useEffect hook - runs side effects in functional components
+	// https://unsplash.com/collections/335434/coding
 	useEffect(() => {
 		// Function to fetch images from Unsplash API
 		const fetchImages = async () => {
 			try {
 				// Making an API call to Unsplash to get random images from a specific collection
 				const result = await unsplash.photos.getRandom({
-					collectionIds: ['317099'],
+					collectionIds: ['335434'],
 					count: 9,
 				})
 
